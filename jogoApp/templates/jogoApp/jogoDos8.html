@@ -1,0 +1,55 @@
+{%load static%}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Jogo dos 8</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'jogoApp/css/style.css' %}">
+</head>
+<body>
+    <h1>Jogo dos 8</h1>
+    {% for tab_atual in tabuleiro %}
+        <table>
+            <tr>
+                <td id="cell-0">{{tab_atual.0}}</td>
+                <td id="cell-1">{{tab_atual.1}}</td>
+                <td id="cell-2">{{tab_atual.2}}</td>
+            </tr>
+            <tr>
+                <td id="cell-3">{{tab_atual.3}}</td>
+                <td id="cell-4">{{tab_atual.4}}</td>
+                <td id="cell-5">{{tab_atual.5}}</td>
+            </tr>
+            <tr>
+                <td id="cell-6">{{tab_atual.6}}</td>
+                <td id="cell-7">{{tab_atual.7}}</td>
+                <td id="cell-8">{{tab_atual.8}}</td>
+            </tr>
+        </table>
+
+        <h6>Estados gerados:</h6>
+        <table>
+            <tr>
+                <td id="cell-0">{{tab_atual.0}}</td>
+                <td id="cell-1">{{tab_atual.1}}</td>
+                <td id="cell-2">{{tab_atual.2}}</td>
+            </tr>
+            <tr>
+                <td id="cell-3">{{tab_atual.3}}</td>
+                <td id="cell-4">{{tab_atual.4}}</td>
+                <td id="cell-5">{{tab_atual.5}}</td>
+            </tr>
+            <tr>
+                <td id="cell-6">{{tab_atual.6}}</td>
+                <td id="cell-7">{{tab_atual.7}}</td>
+                <td id="cell-8">{{tab_atual.8}}</td>
+            </tr>
+        </table>
+        <br>
+    {% endfor %}
+    <br>
+    <button id="start-button">Iniciar</button>
+    <br>
+    <p id="result"></p>
+    <script type="text/javascript" src="{% static 'jogoApp/js/script.js' %}"></script>
+</body>
+</html>
