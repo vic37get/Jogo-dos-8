@@ -12,12 +12,12 @@ def home(request):
 def buscaEmLargura(request):
     estadoInicial = [1, 2, 3, 4, 5, 6, 0, 7, 8]
     estadoFinal = [1, 2, 3, 4, 5, 6, 7, 8, 0]
-    solucao, fronteira, nosGerados, profundidadeMaxima, profundidadeSolucao, estadosVisitados, iteracoes, iteracoesGeradas = buscaEmLarguraMain(estadoInicial, estadoFinal)
+    solucao, fronteira, nosGerados, profundidadeMaxima, profundidadeSolucao, estadosVisitados, iteracoes = buscaEmLarguraMain(estadoInicial, estadoFinal)
     context = {
         'tipoBusca': 'Largura',
         'tabuleiro': iteracoes,
-        'estadosGerados': iteracoesGeradas,
     }
+    print(iteracoes)
     template = loader.get_template('jogoApp/jogoDos8.html')
     return HttpResponse(template.render(context, request))
 
