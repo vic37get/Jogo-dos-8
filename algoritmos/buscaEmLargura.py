@@ -6,7 +6,6 @@ from utils import estadosPossiveis
 def buscaEmLarguraMain(estadoInicial, estadoFinal):
     iteracoes = []
     iteracoesGeradas = []
-    
     nosGerados = 0
     profundidadeMaxima = 0
     profundidadeSolucao = None
@@ -31,10 +30,12 @@ def buscaEmLarguraMain(estadoInicial, estadoFinal):
                 nosGerados,
                 profundidadeMaxima,
                 profundidadeSolucao,
-                len(estadosVisitados), iteracoes
+                len(estadosVisitados), iteracoes, iteracoesGeradas
             )
         # Se ainda não foi, o nó é ampliado.
-        for proximoEstado in estadosPossiveis(estadoAtual):
+        possiveisJogadas = estadosPossiveis(estadoAtual)
+        iteracoesGeradas.append(possiveisJogadas)
+        for proximoEstado in possiveisJogadas:
             print(
                 "Proximo estado:\n",
                 np.array(proximoEstado).reshape(3, 3),
