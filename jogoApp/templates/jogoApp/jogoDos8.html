@@ -52,12 +52,14 @@
     <section id="features" class='carrossel-index'>
         <div class="content" style="width: 850px !important;">
         <h5 class="text-white mt-3"><strong>JOGO</strong> DOS 8</h5>
+        <h6 class="text-white mt-3 ms-4"><strong>{{tipoBusca}}</strong></h6>
+
             <div class="slider slider-1">
                 {% for tab_atual in tabuleiro %}
                     <div class="imagem-index">									
                         <div class="div-estadoAtual">
-                            <div class="titulos ps-5 pt-3">
-                                <strong><p>Estado atual (nº {{tab_atual.7}}):</p></strong>
+                            <div class="titulos ps-3 pt-3">
+                                <strong><p><i class="fas fa-chevron-circle-right"></i> Estado atual (nº {{tab_atual.7}}):</p></strong>
                             </div>
                             <table>
                                 <tr>
@@ -79,8 +81,8 @@
                             <br>
                 
                             <div class="div-estadosGerados">
-                                <div class="titulos-estados-gerados">
-                                    <strong><p>Nós gerados:</p></strong>
+                                <div class="titulos ps-3 pt-3">
+                                    <strong><p><i class="fas fa-chevron-circle-right"></i> Nós gerados:</p></strong>
                                     <br>
                                 </div>
                                 <div class="div-estadosGerados-interna">
@@ -106,11 +108,11 @@
                                 </div>
                             </div>
                             <div class="informacoes-jogada">
-                                <p>Tempo de execução: {{tab_atual.2}}</p>
-                                <p>Nós gerados: {{tab_atual.3}}</p>
-                                <p>Tamanho da Fronteira de espaço de estados: {{tab_atual.4}}</p>
-                                <p>Profundidade da solução: {{tab_atual.5}}</p>
-                                <p>Profundidade máxima atingida: {{tab_atual.6}}</p>
+                                <p><i class="fas fa-hourglass"></i> Tempo de execução: {{tab_atual.2}}</p>
+                                <p><i class="fas fa-sitemap"></i> Nós gerados: {{tab_atual.3}}</p>
+                                <p><i class="fas fa-ruler-horizontal"></i> Tamanho da Fronteira de espaço de estados: {{tab_atual.4}}</p>
+                                <p><i class="fas fa-ruler-vertical"></i> Profundidade da solução: {{tab_atual.5}}</p>
+                                <p><i class="fas fa-ruler-vertical"></i> Profundidade máxima atingida: {{tab_atual.6}}</p>
                             </div>
                         </div>
                     </div>
