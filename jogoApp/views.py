@@ -6,7 +6,10 @@ from algoritmos.buscaEmProfundidade import buscaEmProfundidadeMain
 
 # Create your views here.
 def home(request):
-    context = {}
+    estadoFinal = [1, 2, 3, 4, 5, 6, 7, 8, 0]
+    context = {
+        'estadoFinal': estadoFinal,
+    }
     template = loader.get_template('jogoApp/home.html')
     return HttpResponse(template.render(context, request))
 

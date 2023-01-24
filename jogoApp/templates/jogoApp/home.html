@@ -1,12 +1,89 @@
+{%load static%}
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Jogo dos 8</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'jogoApp/css/style.css' %}">
+    <script type="text/javascript" src="{% static 'jogoApp/js/script.js' %}"></script>
+
+    <!-- Última versão CSS compilada e minificada do Bootstrap-->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+            
+    <!-- Bootstrap icons-->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" rel="stylesheet" />
+
+    <!-- Favicon-->
+    <link rel="icon" type="image/x-icon" href="{% static 'jogoApp/assets/icon.png' %}" />
+
+    <!-- Icones fontaweasome-->
+    <script src="https://kit.fontawesome.com/4169326a4c.js" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.3.4/jspdf.debug.js"></script>
+
+    <!-- Jquery Links -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+    <script src="https://kenwheeler.github.io/slick/slick/slick.js"></script>
+
+    <!--css do carrossel-->
+    <link href="https://kenwheeler.github.io/slick/slick/slick-theme.css" rel="stylesheet"/>
+    <link href="https://kenwheeler.github.io/slick/slick/slick.css" rel="stylesheet"/>
+    <link href="https://kenwheeler.github.io/slick/css/prism.css" rel="stylesheet"/>
+
 </head>
+
 <body>
-    <h1>TAMO JUNTO!</h1>
+    <!--Carrosel-->
+    <section id="features" class='carrossel-index'>
+        <div class="content" style="width: 850px !important;">
+            <h5 class="text-white mt-3"><strong>JOGO</strong> DOS 8</h5>
+            <h6 class="text-white mt-3 ms-4"><strong>{{tipoBusca}}</strong></h6>
+
+            <div class="div-inicial">
+                <div class="estadoFinal">
+                    <strong><h5><i class="fa-solid fa-bullseye text-danger"></i> Estado Final:</h5></strong>
+                    <table>
+                        <tr>
+                            <td id="cell-0">{{estadoFinal.0}}</td>
+                            <td id="cell-1">{{estadoFinal.1}}</td>
+                            <td id="cell-2">{{estadoFinal.2}}</td>
+                        </tr>
+                        <tr>
+                            <td id="cell-3">{{estadoFinal.3}}</td>
+                            <td id="cell-4">{{estadoFinal.4}}</td>
+                            <td id="cell-5">{{estadoFinal.5}}</td>
+                        </tr>
+                        <tr>
+                            <td id="cell-6">{{estadoFinal.6}}</td>
+                            <td id="cell-7">{{estadoFinal.7}}</td>
+                            <td id="cell-8">{{estadoFinal.8}}</td>
+                        </tr>
+                    </table>
+                </div>
+                
+                <div class="informacoes-jogada m-0 m-auto" style="height: auto !important;">
+                    <p><i class="fa-solid fa-keyboard"></i> Entrada: {{tab_atual.2}}</p>
+                    <input name="tipoArquivo" type="search" class="form-control rounded border-secondary mb-3" style="width: 400px;" placeholder="Estado Inicial" aria-label="Pesquisar" aria-describedby="search-addon" />
+                    <p><i class="fas fa-sitemap"></i> Algoritmo: {{tab_atual.3}}</p>
+                    <div class=" row gx-4 gx-lg-5 menu_index d-flex pb-2">
+                        <div class="input-group rounded align-items-center justify-content-center" style="width: 500px;">
+                            <form class="input-group rounded m-0 m-auto barraDosFiltros" action="{% url 'jogoApp:home' %} " method="get">
+                                {% csrf_token %}
+                                <select name="template" class="form-select rounded me-2 border-secondary w-auto">
+                                    <option value=-1 selected>Selecionar algoritmo</option>
+                                    <option value="buscaEmLargura">Busca em Largura</option>
+                                    <option value="buscaEmProfundidade">Busca em Profundidade</option>
+                                    <option value="buscaGulosa">Busca Gulosa</option>
+                                    <option value="buscaA*">Busca A*</option>
+                                </select>
+                                <button class="btn text-white" style="background-color: #0487D9; border: 1px solid black;" type="submit"><i class="fa-solid fa-circle-play"></i></button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
 </body>
 </html>
