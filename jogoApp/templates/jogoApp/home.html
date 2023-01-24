@@ -37,7 +37,7 @@
     <!--Carrosel-->
     <section id="features" class='carrossel-index'>
         <div class="content" style="width: 850px !important;">
-            <h5 class="text-white mt-3"><strong>JOGO</strong> DOS 8</h5>
+            <a href="{% url 'jogoApp:home' %}" class="text-decoration-none"><h5 class="text-white mt-3"><strong>JOGO</strong> DOS 8</h5></a>
             <h6 class="text-white mt-3 ms-4"><strong>{{tipoBusca}}</strong></h6>
 
             <div class="div-inicial">
@@ -63,14 +63,14 @@
                 </div>
                 
                 <div class="informacoes-jogada m-0 m-auto" style="height: auto !important;">
-                    <p><i class="fa-solid fa-keyboard"></i> Entrada: {{tab_atual.2}}</p>
-                    <input name="tipoArquivo" type="search" class="form-control rounded border-secondary mb-3" style="width: 400px;" placeholder="Estado Inicial" aria-label="Pesquisar" aria-describedby="search-addon" />
-                    <p><i class="fas fa-sitemap"></i> Algoritmo: {{tab_atual.3}}</p>
                     <div class=" row gx-4 gx-lg-5 menu_index d-flex pb-2">
                         <div class="input-group rounded align-items-center justify-content-center" style="width: 500px;">
-                            <form class="input-group rounded m-0 m-auto barraDosFiltros" action="{% url 'jogoApp:home' %} " method="get">
+                            <form class="input-group rounded m-0 m-auto barraDosFiltros" action="{% url 'jogoApp:escolha' %}" method="get">
                                 {% csrf_token %}
-                                <select name="template" class="form-select rounded me-2 border-secondary w-auto">
+                                <p><i class="fa-solid fa-keyboard"></i> Entrada: {{tab_atual.2}}</p>
+                                <input name="entrada" type="search" class="form-control rounded border-secondary mb-3" style="width: 400px;" placeholder="Estado Inicial" aria-label="Pesquisar" aria-describedby="search-addon" />
+                                <p><i class="fas fa-sitemap"></i> Algoritmo: {{tab_atual.3}}</p><br>
+                                <select name="algoritmo" class="form-select rounded me-2 border-secondary w-auto">
                                     <option value=-1 selected>Selecionar algoritmo</option>
                                     <option value="buscaEmLargura">Busca em Largura</option>
                                     <option value="buscaEmProfundidade">Busca em Profundidade</option>
