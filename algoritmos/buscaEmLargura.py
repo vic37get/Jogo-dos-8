@@ -16,10 +16,9 @@ def buscaEmLarguraMain(estadoInicial, estadoFinal):
 
     while not fronteiraEstados.empty():
         jogada+=1
-        print("ESPAÇO DE ESTADOS: \n", fronteiraEstados.queue)
+        #print("ESPAÇO DE ESTADOS: \n", fronteiraEstados.queue)
         estadoAtual, profundidade = fronteiraEstados.get()
         print("ESTADO ATUAL: \n", np.array(estadoAtual).reshape(3, 3))
-        estadosVisitados.add(tuple(estadoAtual))
         possiveisJogadas = estadosPossiveis(estadoAtual)
         
         # Se a solução foi encontrada.
@@ -43,6 +42,7 @@ def buscaEmLarguraMain(estadoInicial, estadoFinal):
                 # Adicionando na fronteira de espaço de estados.
                 fronteiraEstados.put((proximoEstado, profundidade + 1))
                 estadosNaoRepetidos.append(proximoEstado)
+                estadosVisitados.add(tuple(proximoEstado))
                 nosGerados += 1
             else:
                 print("O estado {} ja foi visitado".format(tuple(proximoEstado)))
