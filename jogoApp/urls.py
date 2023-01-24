@@ -5,6 +5,5 @@ app_name = 'jogoApp'
 
 urlpatterns = [
     path('', views.home, name='home'),
-    path('buscaEmLargura', views.buscaEmLargura, name='buscaEmLargura'),
-    path('buscaEmProfundidade', views.buscaEmProfundidade, name='buscaEmProfundidade'),
+    path('escolha', views.executaBusca, name='escolha'),
 ]
