@@ -12,12 +12,14 @@ def buscaEmProfundidadeMain(estadoInicial, estadoFinal):
     fronteiraEstados.append((estadoInicial, 0))
     estadosVisitados = set()
     estadosVisitados.add(tuple(estadoInicial))
+    jaGerados = set()
 
     while len(fronteiraEstados) != 0:
+        print(jogada)
         jogada+=1
-        print("ESPAÇO DE ESTADOS: \n", fronteiraEstados)
+        #print("ESPAÇO DE ESTADOS: \n", fronteiraEstados)
         estadoAtual, profundidade = fronteiraEstados.pop()
-        print("ESTADO ATUAL: \n", np.array(estadoAtual).reshape(3, 3))
+        #print("ESTADO ATUAL: \n", np.array(estadoAtual).reshape(3, 3))
         estadosVisitados.add(tuple(estadoAtual))
         possiveisJogadas = estadosPossiveis(estadoAtual)
 
@@ -25,7 +27,7 @@ def buscaEmProfundidadeMain(estadoInicial, estadoFinal):
         profundidadeMaxima = max(profundidadeMaxima, profundidade)
         if estadoAtual == estadoFinal:
             profundidadeSolucao = profundidade
-            iteracoes.append([estadoAtual, '', (len(estadosVisitados) + nosGerados), nosGerados, len(fronteiraEstados), profundidadeSolucao, profundidadeMaxima, jogada])
+            iteracoes.append([estadoAtual, '', len(estadosVisitados), nosGerados, len(fronteiraEstados), profundidadeSolucao, profundidadeMaxima, jogada])
             return (
                 estadoAtual,
                 len(fronteiraEstados),
@@ -37,13 +39,15 @@ def buscaEmProfundidadeMain(estadoInicial, estadoFinal):
         # Se ainda não foi, o nó é ampliado.
         estadosNaoRepetidos = []
         for proximoEstado in possiveisJogadas:
-            print("Proximo estado:\n",np.array(proximoEstado).reshape(3, 3),"\n///////////",)
-            if tuple(proximoEstado) not in estadosVisitados:
+            #print("Proximo estado:\n",np.array(proximoEstado).reshape(3, 3),"\n///////////",)
+            if tuple(proximoEstado) not in jaGerados:
                 # Adicionando na fronteira de espaço de estados.
                 fronteiraEstados.append((proximoEstado, profundidade + 1))
                 estadosNaoRepetidos.append(proximoEstado)
+                jaGerados.add(tuple(proximoEstado))
                 nosGerados += 1
             else:
-                print("O estado {} ja foi visitado".format(tuple(proximoEstado)))
+                #print("O estado {} ja foi visitado".format(tuple(proximoEstado)))
+                ...
         iteracoes.append([estadoAtual, estadosNaoRepetidos, (len(estadosVisitados) + nosGerados), nosGerados, len(fronteiraEstados), profundidadeSolucao, profundidadeMaxima, jogada])
     return None

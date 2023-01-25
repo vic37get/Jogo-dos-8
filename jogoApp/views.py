@@ -24,7 +24,7 @@ def executaBusca(request):
     entrada = list(map(int, entrada))
     print(entrada, len(entrada))
     print(0 in entrada)
-    if algoritmo != '-1' and len(entrada) == 9:
+    if algoritmo != -1 and len(entrada) == 9:
         print('ENTRADAAAAAAAAAAAAAAA: ', entrada, type(entrada))
         if algoritmo == 'buscaEmLargura':
             solucao, fronteira, nosGerados, profundidadeMaxima, profundidadeSolucao, estadosVisitados, iteracoes = buscaEmLarguraMain(entrada, estadoFinal)

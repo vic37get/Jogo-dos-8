@@ -16,9 +16,10 @@ def buscaEmLarguraMain(estadoInicial, estadoFinal):
 
     while not fronteiraEstados.empty():
         jogada+=1
+        print(jogada)
         #print("ESPAÇO DE ESTADOS: \n", fronteiraEstados.queue)
         estadoAtual, profundidade = fronteiraEstados.get()
-        print("ESTADO ATUAL: \n", np.array(estadoAtual).reshape(3, 3))
+        #print("ESTADO ATUAL: \n", np.array(estadoAtual).reshape(3, 3))
         possiveisJogadas = estadosPossiveis(estadoAtual)
         
         # Se a solução foi encontrada.
@@ -26,18 +27,19 @@ def buscaEmLarguraMain(estadoInicial, estadoFinal):
         if estadoAtual == estadoFinal:
             profundidadeSolucao = profundidade
             iteracoes.append([estadoAtual, '', (len(estadosVisitados) + nosGerados), nosGerados, fronteiraEstados.qsize(), profundidadeSolucao, profundidadeMaxima, jogada])
-            return (
+            return estadoAtual
+            '''(
                 estadoAtual,
                 fronteiraEstados.qsize(),
                 nosGerados,
                 profundidadeMaxima,
                 profundidadeSolucao,
                 len(estadosVisitados), iteracoes
-            )
+            )'''
         # Se ainda não foi, o nó é ampliado.
         estadosNaoRepetidos = []
         for proximoEstado in possiveisJogadas:
-            print("Proximo estado:\n",np.array(proximoEstado).reshape(3, 3),"\n///////////",)
+            #print("Proximo estado:\n",np.array(proximoEstado).reshape(3, 3),"\n///////////",)
             if tuple(proximoEstado) not in estadosVisitados:
                 # Adicionando na fronteira de espaço de estados.
                 fronteiraEstados.put((proximoEstado, profundidade + 1))
@@ -45,6 +47,11 @@ def buscaEmLarguraMain(estadoInicial, estadoFinal):
                 estadosVisitados.add(tuple(proximoEstado))
                 nosGerados += 1
             else:
-                print("O estado {} ja foi visitado".format(tuple(proximoEstado)))
+                #print("O estado {} ja foi visitado".format(tuple(proximoEstado)))
+                pass
         iteracoes.append([estadoAtual, estadosNaoRepetidos, (len(estadosVisitados) + nosGerados), nosGerados, fronteiraEstados.qsize(), profundidadeSolucao, profundidadeMaxima, jogada])
     return None
+
+estadoInicial = [7,1,8,3,2,0,5,4,6]
+estadoFinal = [1,2,3,4,5,6,7,8,0]
+print(buscaEmLarguraMain(estadoInicial, estadoFinal))
