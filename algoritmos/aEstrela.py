@@ -1,4 +1,41 @@
-import queue
+from utils import estadosPossiveis
+
+
+class estado:
+    def __init__(self, estado, nopai, g, h):
+        self.estado = estado
+        self.pai = nopai
+        self.g = g
+        self.h = h
+
+def distanciaManhattan(estadoAtual, estadoFinal):
+    dist = 0
+    for i in range(3):
+        for j in range(3):
+            for k in range(3):
+                for l in range(3):
+                    if (estadoFinal[i][j] == estadoAtual[k][l]):
+                        dist += abs(int(i-k)) + abs(int(j-l))
+    return dist
+
+def buscaAEstrela(estadoInicial, estadoFinal):
+    fronteira = [estadoInicial]
+    while fronteira:
+        estadoAtual = fronteira.pop(0)
+        if estadoAtual == estadoFinal:
+            return estadoAtual
+        possiveisJogadas = estadosPossiveis(estadoAtual)
+        for proximoEstado in possiveisJogadas:
+            ...
+             
+
+
+
+
+
+
+
+'''import queue
 import numpy as np
 from utils import estadosPossiveis
 
@@ -136,7 +173,7 @@ def h2(start,goal):
             for k in range(3):
                 for l in range(3):
                     if (goal[i][j] == start[k][l]):
-                        dist += abs(int(i-k)) +abs(int(j-l))
+                        dist += abs(int(i-k)) + abs(int(j-l))
 
     return dist
 
@@ -179,4 +216,4 @@ def busca_a_star(start, goal, heuristica):
 start = [[1,2,3],[4,0,5],[6,7,8]]
 goal = [[1,2,3],[4,5,6],[7,8,0]]
 
-busca_a_star(start, goal, h2)
+busca_a_star(start, goal, h2)'''
