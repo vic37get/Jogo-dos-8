@@ -6,6 +6,31 @@ class estado:
         self.g = g
         self.h = h
 
+def estadosPossiveisBuscaCega(estadoAtual):
+    linha, coluna = encontraNumEstado(estadoAtual, 0)
+    movimentacoes = []
+    if linha < 2:
+        movePraBaixo = copy.deepcopy(estadoAtual)
+        movePraBaixo[linha+1][coluna], movePraBaixo[linha][coluna] = movePraBaixo[linha][coluna], movePraBaixo[linha+1][coluna]
+        #print("movePraBaixo: \n", movePraBaixo)
+        movimentacoes.append(movePraBaixo)
+    if linha > 0:
+        movePraCima = copy.deepcopy(estadoAtual)
+        movePraCima[linha-1][coluna], movePraCima[linha][coluna] = movePraCima[linha][coluna], movePraCima[linha-1][coluna]
+        #print("movePraCima: \n", movePraCima)
+        movimentacoes.append(movePraCima)
+    if coluna < 2:
+        movePraDireita = copy.deepcopy(estadoAtual)
+        movePraDireita[linha][coluna+1], movePraDireita[linha][coluna] = movePraDireita[linha][coluna], movePraDireita[linha][coluna+1]
+        #print("movePraDireita: \n", movePraDireita)
+        movimentacoes.append(movePraDireita)
+    if coluna > 0:
+        movePraEsquerda = copy.deepcopy(estadoAtual)
+        movePraEsquerda[linha][coluna-1], movePraEsquerda[linha][coluna] = movePraEsquerda[linha][coluna], movePraEsquerda[linha][coluna-1]
+        #print("movePraEsquerda: \n", movePraEsquerda)
+        movimentacoes.append(movePraEsquerda)
+    return movimentacoes
+
 def estadosPossiveis(estadoAtual):
     estadoAtual = estadoAtual.estado
     linha, coluna = encontraNumEstado(estadoAtual, 0)
