@@ -10,17 +10,18 @@ def buscaEmProfundidadeMain(estadoInicial, estadoFinal):
     profundidadeSolucao = None
     fronteiraEstados = []
     fronteiraEstados.append((estadoInicial, 0))
+    jaGerados = set()
+    jaGerados.add(tuple(estadoInicial))
+    
     estadosVisitados = set()
     estadosVisitados.add(tuple(estadoInicial))
-    jaGerados = set()
 
     while len(fronteiraEstados) != 0:
-        print(jogada)
         jogada+=1
         #print("ESPAÇO DE ESTADOS: \n", fronteiraEstados)
         estadoAtual, profundidade = fronteiraEstados.pop()
-        #print("ESTADO ATUAL: \n", np.array(estadoAtual).reshape(3, 3))
         estadosVisitados.add(tuple(estadoAtual))
+        print("ESTADO ATUAL: \n", np.array(estadoAtual).reshape(3, 3))
         possiveisJogadas = estadosPossiveis(estadoAtual)
 
         # Se a solução foi encontrada.
@@ -34,12 +35,12 @@ def buscaEmProfundidadeMain(estadoInicial, estadoFinal):
                 nosGerados,
                 profundidadeMaxima,
                 profundidadeSolucao,
-                len(estadosVisitados), iteracoes
+                len(estadosVisitados), iteracoes, jogada
             )
         # Se ainda não foi, o nó é ampliado.
         estadosNaoRepetidos = []
         for proximoEstado in possiveisJogadas:
-            #print("Proximo estado:\n",np.array(proximoEstado).reshape(3, 3),"\n///////////",)
+            print("Proximo estado:\n",np.array(proximoEstado).reshape(3, 3),"\n///////////",)
             if tuple(proximoEstado) not in jaGerados:
                 # Adicionando na fronteira de espaço de estados.
                 fronteiraEstados.append((proximoEstado, profundidade + 1))
@@ -47,7 +48,7 @@ def buscaEmProfundidadeMain(estadoInicial, estadoFinal):
                 jaGerados.add(tuple(proximoEstado))
                 nosGerados += 1
             else:
-                #print("O estado {} ja foi visitado".format(tuple(proximoEstado)))
-                ...
-        iteracoes.append([estadoAtual, estadosNaoRepetidos, (len(estadosVisitados) + nosGerados), nosGerados, len(fronteiraEstados), profundidadeSolucao, profundidadeMaxima, jogada])
+                print("O estado {} ja foi visitado".format(tuple(proximoEstado)))
+                
+        iteracoes.append([estadoAtual, estadosNaoRepetidos, len(estadosVisitados), nosGerados, len(fronteiraEstados), profundidadeSolucao, profundidadeMaxima, jogada])
     return None

@@ -27,14 +27,14 @@ def executaBusca(request):
     if algoritmo != -1 and len(entrada) == 9:
         print('ENTRADAAAAAAAAAAAAAAA: ', entrada, type(entrada))
         if algoritmo == 'buscaEmLargura':
-            solucao, fronteira, nosGerados, profundidadeMaxima, profundidadeSolucao, estadosVisitados, iteracoes = buscaEmLarguraMain(entrada, estadoFinal)
+            solucao, fronteira, nosGerados, profundidadeMaxima, profundidadeSolucao, estadosVisitados, iteracoes, jogadas = buscaEmLarguraMain(entrada, estadoFinal)
             context = {
                 'tipoBusca': 'Busca em Largura',
                 'tabuleiro': iteracoes,
             }
             return HttpResponse(template.render(context, request))
         elif algoritmo == 'buscaEmProfundidade':
-            solucao, fronteira, nosGerados, profundidadeMaxima, profundidadeSolucao, estadosVisitados, iteracoes = buscaEmProfundidadeMain(entrada, estadoFinal)
+            solucao, fronteira, nosGerados, profundidadeMaxima, profundidadeSolucao, estadosVisitados, iteracoes, jogadas = buscaEmProfundidadeMain(entrada, estadoFinal)
             context = {
                 'tipoBusca': 'Busca em Profundidade',
                 'tabuleiro': iteracoes,
