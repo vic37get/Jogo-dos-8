@@ -1,6 +1,6 @@
 import queue
 import numpy as np
-from funcoesAuxiliares import estadosPossiveisBuscaCega
+from funcoesAuxiliares import *
 
 
 def buscaEmLarguraMain(estadoInicial, estadoFinal):
@@ -15,8 +15,6 @@ def buscaEmLarguraMain(estadoInicial, estadoFinal):
     fronteiraEstados = queue.Queue()
     fronteiraEstados.put((estadoInicial, 0))
 
-
-
     while not fronteiraEstados.empty():
         tam_fronteira.append(fronteiraEstados.qsize())
         estadoAtual, profundidade = fronteiraEstados.get()
@@ -25,7 +23,7 @@ def buscaEmLarguraMain(estadoInicial, estadoFinal):
         custoCaminho+=1
         print('\nEstado atual: \n', np.array(estadoAtual).reshape(3,3))
         print('Profundidade: ', profundidade)
-        possiveisJogadas = estadosPossiveisBuscaCega(estadoAtual)
+        possiveisJogadas = estadosPossiveis(estadoAtual)
         # Se a solução foi encontrada.
         profundidadeMaxima = max(profundidadeMaxima, profundidade)
         if estadoAtual == estadoFinal:
@@ -49,6 +47,6 @@ def buscaEmLarguraMain(estadoInicial, estadoFinal):
         iteracoes.append([estadoAtual, estadosIteracoes, custoCaminho, fronteiraEstados.qsize(), nosGerados, profundidadeSolucao, profundidadeMaxima])
     return None
 
-'''estadoInicial = [[1,2,3],[4,5,6],[0,7,8]]
+'''estadoInicial = [[4,1,3],[7,2,5],[0,8,6]]
 estadoFinal = [[1,2,3],[4,5,6],[7,8,0]]
 print(buscaEmLarguraMain(estadoInicial, estadoFinal))'''
