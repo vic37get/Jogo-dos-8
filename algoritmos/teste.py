@@ -9,7 +9,3 @@ lista.append((estadoFinal, 0))
 
 estado, profundidade = lista.pop()
 
-
-
-if adentroLista(estadoInicial, lista):
-    print('ok')
