@@ -1,74 +1,50 @@
 import copy
+import random
 
+#Classe estado, que tem a configuração de um estado. (estado do tabuleiro, nó pai, custo do caminho e estimativa de distancia da solução)
 class estado:
-    def __init__(self, estado, g, h):
+    def __init__(self, estado, nopai, g, h):
         self.estado = estado
+        self.nopai = nopai
         self.g = g
         self.h = h
 
-def estadosPossiveisBuscaCega(estadoAtual):
-    linha, coluna = encontraNumEstado(estadoAtual, 0)
-    movimentacoes = []
-    if linha < 2:
-        movePraBaixo = copy.deepcopy(estadoAtual)
-        movePraBaixo[linha+1][coluna], movePraBaixo[linha][coluna] = movePraBaixo[linha][coluna], movePraBaixo[linha+1][coluna]
-        #print("movePraBaixo: \n", movePraBaixo)
-        movimentacoes.append(movePraBaixo)
-    if linha > 0:
-        movePraCima = copy.deepcopy(estadoAtual)
-        movePraCima[linha-1][coluna], movePraCima[linha][coluna] = movePraCima[linha][coluna], movePraCima[linha-1][coluna]
-        #print("movePraCima: \n", movePraCima)
-        movimentacoes.append(movePraCima)
-    if coluna < 2:
-        movePraDireita = copy.deepcopy(estadoAtual)
-        movePraDireita[linha][coluna+1], movePraDireita[linha][coluna] = movePraDireita[linha][coluna], movePraDireita[linha][coluna+1]
-        #print("movePraDireita: \n", movePraDireita)
-        movimentacoes.append(movePraDireita)
-    if coluna > 0:
-        movePraEsquerda = copy.deepcopy(estadoAtual)
-        movePraEsquerda[linha][coluna-1], movePraEsquerda[linha][coluna] = movePraEsquerda[linha][coluna], movePraEsquerda[linha][coluna-1]
-        #print("movePraEsquerda: \n", movePraEsquerda)
-        movimentacoes.append(movePraEsquerda)
-    return movimentacoes
-
+#Função que gera os possíveis movimentos do tabuleiro a partir de um estado.
 def estadosPossiveis(estadoAtual):
-    estadoAtual = estadoAtual.estado
     linha, coluna = encontraNumEstado(estadoAtual, 0)
     movimentacoes = []
-    if linha < 2:
-        movePraBaixo = copy.deepcopy(estadoAtual)
-        movePraBaixo[linha+1][coluna], movePraBaixo[linha][coluna] = movePraBaixo[linha][coluna], movePraBaixo[linha+1][coluna]
-        #print("movePraBaixo: \n", movePraBaixo)
-        movimentacoes.append(movePraBaixo)
+
     if linha > 0:
         movePraCima = copy.deepcopy(estadoAtual)
         movePraCima[linha-1][coluna], movePraCima[linha][coluna] = movePraCima[linha][coluna], movePraCima[linha-1][coluna]
-        #print("movePraCima: \n", movePraCima)
         movimentacoes.append(movePraCima)
-    if coluna < 2:
-        movePraDireita = copy.deepcopy(estadoAtual)
-        movePraDireita[linha][coluna+1], movePraDireita[linha][coluna] = movePraDireita[linha][coluna], movePraDireita[linha][coluna+1]
-        #print("movePraDireita: \n", movePraDireita)
-        movimentacoes.append(movePraDireita)
+
+    if linha < 2:
+        movePraBaixo = copy.deepcopy(estadoAtual)
+        movePraBaixo[linha+1][coluna], movePraBaixo[linha][coluna] = movePraBaixo[linha][coluna], movePraBaixo[linha+1][coluna]
+        movimentacoes.append(movePraBaixo)
+    
     if coluna > 0:
         movePraEsquerda = copy.deepcopy(estadoAtual)
         movePraEsquerda[linha][coluna-1], movePraEsquerda[linha][coluna] = movePraEsquerda[linha][coluna], movePraEsquerda[linha][coluna-1]
-        #print("movePraEsquerda: \n", movePraEsquerda)
         movimentacoes.append(movePraEsquerda)
+    
+    if coluna < 2:
+        movePraDireita = copy.deepcopy(estadoAtual)
+        movePraDireita[linha][coluna+1], movePraDireita[linha][coluna] = movePraDireita[linha][coluna], movePraDireita[linha][coluna+1]
+        movimentacoes.append(movePraDireita)
+    #Os movimentos são aleatorizados na tentativa de minimizar possíveis loops.
+    random.shuffle(movimentacoes)
     return movimentacoes
 
+#Função que retorna as coordenadas (localização) de um numero dentro do tabuleiro.
 def encontraNumEstado(estado, numero):
     for i in range(3):
         for j in range(3):
             if estado[i][j] == numero:
                 return i,j
 
-def adentroLista(element, lista):
-    for i in lista:
-        if i[0] == element:
-            return False
-    return True
-
+#Função Heurística Distancia de Manhathan. (É a soma das distância de todos os números do tabuleiro do estado Meta, ou seja, o quão cada peça está distante da posição correta.)
 def distanciaManhattan(estadoAtual, estadoFinal):
     dist = 0
     fora = 0
@@ -82,6 +58,7 @@ def distanciaManhattan(estadoAtual, estadoFinal):
             dist += abs(i2-i) + abs(j2-j)
     return dist + fora
 
+#Função que insere um estado na fronteira de espaço de estados e a ordena por menor custo. (Usada somente nos algoritmos Busca A* e Busca Gulosa.)
 def insereEstado(estado, fronteira):
     if estado in fronteira:
         return fronteira
