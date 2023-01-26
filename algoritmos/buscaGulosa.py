@@ -3,7 +3,7 @@ from funcoesAuxiliares import *
 
 #Criação de um novo estado, com cálculo de distancia heurística do estado com base na distância de Manhattan.
 #Tem como estimativa (h) apenas a estimativa até a solução.
-def novoEstado(estadoAtual, nopai, estadoFinal, g):
+def novoEstadoG(estadoAtual, nopai, estadoFinal, g):
     h = distanciaManhattan(estadoAtual, estadoFinal)
     return estado(estadoAtual, nopai, g, h)
 
@@ -17,11 +17,13 @@ def buscaGulosa(estadoInicial, estadoFinal):
     visitados = []
     profundidadeMaxima = 0
 
-    inicial = novoEstado(estadoInicial, None, estadoFinal, g=0)
+    inicial = novoEstadoG(estadoInicial, None, estadoFinal, g=0)
     insereEstado(inicial, fronteira)
     while len(fronteira) != 0:
         tam_fronteira.append(len(fronteira))
         estadoAtual = fronteira.pop(0)
+        if estadoAtual.estado not in visitados:
+            visitados.append(estadoAtual.estado)
         #Profundidade máxima atingida
         profundidadeMaxima = max(profundidadeMaxima, estadoAtual.g)
         print('Estado Atual: \n', np.array(estadoAtual.estado).reshape(3, 3))
@@ -33,7 +35,7 @@ def buscaGulosa(estadoInicial, estadoFinal):
             #Estado Atual, Custo do caminho, Custo de espaço, Custo de tempo.
             return estadoAtual.estado, custoCaminho, max(tam_fronteira), custoCaminho, estadoAtual.g, profundidadeMaxima, iteracoes
         # Os movimentos possíveis com o tabuleiro nesse estado.
-        possiveisJogadas = estadosPossiveis(estadoAtual)
+        possiveisJogadas = estadosPossiveis(estadoAtual.estado)
         # Se a solução ainda não foi encontrada, o nó é ampliado.
         estadosIteracoes = []
         for proximoEstado in possiveisJogadas:
@@ -41,7 +43,7 @@ def buscaGulosa(estadoInicial, estadoFinal):
                 print('Estado gerado: \n', np.array(proximoEstado).reshape(3,3))
                 print('Profundidade: ', estadoAtual.g+1)
                 # Adicionando os estados gerados na fronteira de espaço de estados.
-                insereEstado(novoEstado(proximoEstado, estadoAtual, estadoFinal, estadoAtual.g+1), fronteira)
+                insereEstado(novoEstadoG(proximoEstado, estadoAtual, estadoFinal, estadoAtual.g+1), fronteira)
                 visitados.append(proximoEstado)
                 estadosIteracoes.append(np.array(proximoEstado).reshape(1,-1))
                 nosGerados+=1
