@@ -14,23 +14,26 @@ def buscaEmProfundidadeMain(estadoInicial, estadoFinal):
     while len(fronteiraEstados) != 0:
         tam_fronteira.append(len(fronteiraEstados))
         estadoAtual = fronteiraEstados.pop()
+        #Se o estado atual ainda não foi visitado ele é adicionado aos estados visitados.
         if estadoAtual.estado not in estadosVisitados:
             estadosVisitados.append(estadoAtual.estado)
         custoCaminho+=1
         print('\nEstado atual: \n', np.array(estadoAtual.estado).reshape(3,3))
         print('Profundidade: ', estadoAtual.g)
+        # Os movimentos possíveis com o tabuleiro nesse estado.
         possiveisJogadas = estadosPossiveis(estadoAtual.estado)
-        # Se a solução foi encontrada.
+        #Profundidade máxima atingida
         profundidadeMaxima = max(profundidadeMaxima, estadoAtual.g)
+        # Se a solução foi encontrada.
         if estadoAtual.estado == estadoFinal:
             iteracoes.append([estadoAtual.estado, '', custoCaminho, len(fronteiraEstados), nosGerados, estadoAtual.g, profundidadeMaxima])
             #Estado Atual, Custo do caminho, Custo de espaço, Custo de tempo.
             return estadoAtual.estado, custoCaminho, max(tam_fronteira), custoCaminho, estadoAtual.g, profundidadeMaxima, iteracoes
-        # Se ainda não foi, o nó é ampliado.
+        # Se a solução ainda não foi encontrada, o nó é ampliado.
         estadosIteracoes = []
         for proximoEstado in possiveisJogadas:
             if proximoEstado not in estadosVisitados:
-                # Adicionando na fronteira de espaço de estados.
+                # Adicionando os estados gerados na fronteira de espaço de estados.
                 fronteiraEstados.append(estado(proximoEstado, estadoAtual, estadoAtual.g+1, None))
                 estadosVisitados.append(proximoEstado)
                 print('Estado gerado: \n', np.array(proximoEstado).reshape(3,3))
