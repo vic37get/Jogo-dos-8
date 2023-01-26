@@ -62,23 +62,23 @@
                     <div class="imagem-index">									
                         <div class="div-estadoAtual">
                             <div class="titulos ps-3 pt-3">
-                                <strong><p><i class="fas fa-chevron-circle-right"></i> Estado atual (nº {{tab_atual.7}}):</p></strong>
+                                <strong><p><i class="fas fa-chevron-circle-right"></i> Estado atual (nº {{tab_atual.2}}):</p></strong>
                             </div>
                             <table>
                                 <tr>
-                                    <td id="cell-0">{{tab_atual.0.0}}</td>
-                                    <td id="cell-1">{{tab_atual.0.1}}</td>
-                                    <td id="cell-2">{{tab_atual.0.2}}</td>
+                                    <td id="cell-0">{{tab_atual.0.0.0}}</td>
+                                    <td id="cell-1">{{tab_atual.0.0.1}}</td>
+                                    <td id="cell-2">{{tab_atual.0.0.2}}</td>
                                 </tr>
                                 <tr>
-                                    <td id="cell-3">{{tab_atual.0.3}}</td>
-                                    <td id="cell-4">{{tab_atual.0.4}}</td>
-                                    <td id="cell-5">{{tab_atual.0.5}}</td>
+                                    <td id="cell-3">{{tab_atual.0.1.0}}</td>
+                                    <td id="cell-4">{{tab_atual.0.1.1}}</td>
+                                    <td id="cell-5">{{tab_atual.0.1.2}}</td>
                                 </tr>
                                 <tr>
-                                    <td id="cell-6">{{tab_atual.0.6}}</td>
-                                    <td id="cell-7">{{tab_atual.0.7}}</td>
-                                    <td id="cell-8">{{tab_atual.0.8}}</td>
+                                    <td id="cell-6">{{tab_atual.0.2.0}}</td>
+                                    <td id="cell-7">{{tab_atual.0.2.1}}</td>
+                                    <td id="cell-8">{{tab_atual.0.2.2}}</td>
                                 </tr>
                             </table>
                             <br>
@@ -92,19 +92,19 @@
                                     {% for gerados in tab_atual.1 %}
                                         <table>
                                             <tr>
-                                                <td id="cell-0">{{gerados.0}}</td>
-                                                <td id="cell-1">{{gerados.1}}</td>
-                                                <td id="cell-2">{{gerados.2}}</td>
+                                                <td id="cell-0">{{gerados.0.0}}</td>
+                                                <td id="cell-1">{{gerados.0.1}}</td>
+                                                <td id="cell-2">{{gerados.0.2}}</td>
                                             </tr>
                                             <tr>
-                                                <td id="cell-3">{{gerados.3}}</td>
-                                                <td id="cell-4">{{gerados.4}}</td>
-                                                <td id="cell-5">{{gerados.5}}</td>
+                                                <td id="cell-3">{{gerados.0.3}}</td>
+                                                <td id="cell-4">{{gerados.0.4}}</td>
+                                                <td id="cell-5">{{gerados.0.5}}</td>
                                             </tr>
                                             <tr>
-                                                <td id="cell-6">{{gerados.6}}</td>
-                                                <td id="cell-7">{{gerados.7}}</td>
-                                                <td id="cell-8">{{gerados.8}}</td>
+                                                <td id="cell-6">{{gerados.0.6}}</td>
+                                                <td id="cell-7">{{gerados.0.7}}</td>
+                                                <td id="cell-8">{{gerados.0.8}}</td>
                                             </tr>
                                         </table>
                                     {% endfor %}
@@ -112,8 +112,8 @@
                             </div>
                             <div class="informacoes-jogada">
                                 <p><i class="fas fa-hourglass"></i> Tempo de execução: {{tab_atual.2}}</p>
-                                <p><i class="fas fa-sitemap"></i> Nós gerados: {{tab_atual.3}}</p>
-                                <p><i class="fas fa-ruler-horizontal"></i> Tamanho da Fronteira de espaço de estados: {{tab_atual.4}}</p>
+                                <p><i class="fas fa-sitemap"></i> Nós gerados: {{tab_atual.4}}</p>
+                                <p><i class="fas fa-ruler-horizontal"></i> Tamanho da Fronteira de espaço de estados: {{tab_atual.3}}</p>
                                 <p><i class="fas fa-ruler-vertical"></i> Profundidade da solução: {{tab_atual.5}}</p>
                                 <p><i class="fas fa-ruler-vertical"></i> Profundidade máxima atingida: {{tab_atual.6}}</p>
                             </div>
