@@ -6,45 +6,45 @@ from funcoesAuxiliares import *
 def buscaEmLarguraMain(estadoInicial, estadoFinal):
     iteracoes = []
     nosGerados = 0
-
     custoCaminho = 0
     tam_fronteira = []
     estadosVisitados = []  
     profundidadeMaxima = 0
-    profundidadeSolucao = 0
     fronteiraEstados = queue.Queue()
-    fronteiraEstados.put((estadoInicial, 0))
+    fronteiraEstados.put(estado(estadoInicial, None, 0, None))
 
     while not fronteiraEstados.empty():
         tam_fronteira.append(fronteiraEstados.qsize())
-        estadoAtual, profundidade = fronteiraEstados.get()
-        if estadoAtual not in estadosVisitados:
-            estadosVisitados.append(estadoAtual)
+        estadoAtual = fronteiraEstados.get()
+        #Se o estado atual ainda não foi visitado ele é adicionado aos estados visitados.
+        if estadoAtual.estado not in estadosVisitados:
+            estadosVisitados.append(estadoAtual.estado)
         custoCaminho+=1
-        print('\nEstado atual: \n', np.array(estadoAtual).reshape(3,3))
-        print('Profundidade: ', profundidade)
-        possiveisJogadas = estadosPossiveis(estadoAtual)
+        print('\nEstado atual: \n', np.array(estadoAtual.estado).reshape(3,3))
+        print('Profundidade: ', estadoAtual.g)
+        # Os movimentos possíveis com o tabuleiro nesse estado.
+        possiveisJogadas = estadosPossiveis(estadoAtual.estado)
+        #Profundidade máxima atingida
+        profundidadeMaxima = max(profundidadeMaxima, estadoAtual.g)
         # Se a solução foi encontrada.
-        profundidadeMaxima = max(profundidadeMaxima, profundidade)
-        if estadoAtual == estadoFinal:
-            profundidadeSolucao = profundidade
-            iteracoes.append([estadoAtual, '', custoCaminho, fronteiraEstados.qsize(), nosGerados, profundidadeSolucao, profundidadeMaxima])
+        if estadoAtual.estado == estadoFinal:
+            iteracoes.append([estadoAtual.estado, '', custoCaminho, fronteiraEstados.qsize(), nosGerados, estadoAtual.g, profundidadeMaxima])
             #Estado Atual, Custo do caminho, Custo de espaço, Custo de tempo.
-            return estadoAtual, custoCaminho, max(tam_fronteira), custoCaminho, profundidadeSolucao, profundidadeMaxima, iteracoes
-        # Se ainda não foi, o nó é ampliado.
+            return estadoAtual.estado, custoCaminho, max(tam_fronteira), custoCaminho, estadoAtual.g, profundidadeMaxima, iteracoes
+        # Se a solução ainda não foi encontrada, o nó é ampliado.
         estadosIteracoes = []
         for proximoEstado in possiveisJogadas:
             if proximoEstado not in estadosVisitados:
-                # Adicionando na fronteira de espaço de estados.
-                fronteiraEstados.put((proximoEstado, profundidade + 1))
+                # Adicionando os estados gerados na fronteira de espaço de estados.
+                fronteiraEstados.put(estado(proximoEstado, estadoAtual, estadoAtual.g+1, None))
                 estadosVisitados.append(proximoEstado)
                 print('Estado gerado: \n', np.array(proximoEstado).reshape(3,3))
-                print('Profundidade: ', profundidade+1)
+                print('Profundidade: ', estadoAtual.g+1)
                 estadosIteracoes.append(np.array(proximoEstado).reshape(1,-1))
                 nosGerados+=1
             else:
                 print("\nO estado {} ja foi visitado".format(tuple(proximoEstado)))
-        iteracoes.append([estadoAtual, estadosIteracoes, custoCaminho, fronteiraEstados.qsize(), nosGerados, profundidadeSolucao, profundidadeMaxima])
+        iteracoes.append([estadoAtual.estado, estadosIteracoes, custoCaminho, fronteiraEstados.qsize(), nosGerados, estadoAtual.g, profundidadeMaxima])
     return None
 
 '''estadoInicial = [[4,1,3],[7,2,5],[0,8,6]]
