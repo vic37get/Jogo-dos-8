@@ -1,10 +1,9 @@
-import copy
 import numpy as np
 from funcoesAuxiliares import *
 
-def novoEstado(estadoAtual, estadoFinal, g):
+def novoEstado(estadoAtual, nopai, estadoFinal, g):
     h = distanciaManhattan(estadoAtual, estadoFinal)
-    return estado(estadoAtual, g, h)
+    return estado(estadoAtual, nopai, g, h)
 
 def buscaGulosa(estadoInicial, estadoFinal):
     iteracoes = []
@@ -15,7 +14,7 @@ def buscaGulosa(estadoInicial, estadoFinal):
     visitados = []
     profundidadeMaxima = 0
 
-    inicial = novoEstado(estadoInicial, estadoFinal, g=0)
+    inicial = novoEstado(estadoInicial, None, estadoFinal, g=0)
     insereEstado(inicial, fronteira)
     while len(fronteira) != 0:
         tam_fronteira.append(len(fronteira))
@@ -34,13 +33,13 @@ def buscaGulosa(estadoInicial, estadoFinal):
             if proximoEstado not in visitados:
                 print('Estado gerado: \n', np.array(proximoEstado).reshape(3,3))
                 print('Profundidade: ', estadoAtual.g+1)
-                insereEstado(novoEstado(proximoEstado, estadoFinal, estadoAtual.g+1), fronteira)
+                insereEstado(novoEstado(proximoEstado, estadoAtual, estadoFinal, estadoAtual.g+1), fronteira)
                 visitados.append(proximoEstado)
                 estadosIteracoes.append(np.array(proximoEstado).reshape(1,-1))
                 nosGerados+=1
         iteracoes.append([estadoAtual.estado, estadosIteracoes, custoCaminho, len(fronteira), nosGerados, estadoAtual.g, profundidadeMaxima])
     return 0
 
-'''estadoInicial = [[1,2,3],[4,5,6],[0,7,8]]
-estadoFinal = [[1,2,3],[4,5,6],[7,8,0]]
-print(buscaGulosa(estadoInicial, estadoFinal))'''
+#estadoInicial = [[1,2,3],[4,5,6],[8,7,0]]
+#estadoFinal = [[1,2,3],[4,5,6],[7,8,0]]
+#buscaGulosa(estadoInicial, estadoFinal)
