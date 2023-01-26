@@ -17,13 +17,19 @@ def buscaEmProfundidadeMain(estadoInicial, estadoFinal):
 
     while len(fronteiraEstados) != 0:
         tam_fronteira.append(len(fronteiraEstados))
-        estadoAtual, profundidade = fronteiraEstados.pop()
+        (estadoAtual, profundidade) = fronteiraEstados.pop()
+        
         if estadoAtual not in estadosVisitados:
+            print(estadoAtual)
+            print("###")
+            print(estadosVisitados)
             estadosVisitados.append(estadoAtual)
         custoCaminho+=1
-        print('\nEstado atual: \n', np.array(estadoAtual).reshape(3,3))
-        print('Profundidade: ', profundidade)
+        
+        # print('\nEstado atual: \n', np.array(estadoAtual).reshape(3,3))
+        # print('Profundidade: ', profundidade)
         possiveisJogadas = estadosPossiveisBuscaCega(estadoAtual)
+        # random.shuffle(possiveisJogadas)
         # Se a solução foi encontrada.
         profundidadeMaxima = max(profundidadeMaxima, profundidade)
         if estadoAtual == estadoFinal:
@@ -38,16 +44,17 @@ def buscaEmProfundidadeMain(estadoInicial, estadoFinal):
                 # Adicionando na fronteira de espaço de estados.
                 fronteiraEstados.append((proximoEstado, profundidade + 1))
                 estadosVisitados.append(proximoEstado)
-                print('Estado gerado: \n', np.array(proximoEstado).reshape(3,3))
-                print('Profundidade: ', profundidade+1)
+                # print('Estado gerado: \n', np.array(proximoEstado).reshape(3,3))
+                # print('Profundidade: ', profundidade+1)
                 estadosIteracoes.append(np.array(proximoEstado).reshape(1,-1))
                 nosGerados+=1
             else:
-                print("O estado {} ja foi visitado".format(tuple(proximoEstado)))
+                # print("O estado {} ja foi visitado".format(tuple(proximoEstado)))
+                ...
         iteracoes.append([estadoAtual, estadosIteracoes, custoCaminho, len(fronteiraEstados), nosGerados, profundidadeSolucao, profundidadeMaxima])
     return None
 
 
-'''estadoInicial = [[1,2,3],[4,5,6],[0,7,8]]
+estadoInicial = [[1,2,3],[4,5,6],[0,7,8]]
 estadoFinal = [[1,2,3],[4,5,6],[7,8,0]]
-print(buscaEmProfundidadeMain(estadoInicial, estadoFinal))'''
+buscaEmProfundidadeMain(estadoInicial, estadoFinal)

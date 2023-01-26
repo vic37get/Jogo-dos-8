@@ -6,6 +6,12 @@ class estado:
         self.g = g
         self.h = h
 
+def adentroLista(element, lista):
+    for i in lista:
+        if i[0] == element:
+            return False
+    return True
+
 def estadosPossiveisBuscaCega(estadoAtual):
     linha, coluna = encontraNumEstado(estadoAtual, 0)
     movimentacoes = []
