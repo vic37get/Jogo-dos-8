@@ -1,7 +1,9 @@
 import copy
 import random
 
-#Classe estado, que tem a configuração de um estado. (estado do tabuleiro, nó pai, custo do caminho e estimativa de distancia da solução)
+# Classe estado, que tem a configuração de um estado. 
+# (estado do tabuleiro, nó pai, custo do caminho e 
+# estimativa de distancia da solução)
 class estado:
     def __init__(self, estado, nopai, g, h):
         self.estado = estado
@@ -37,14 +39,18 @@ def estadosPossiveis(estadoAtual):
     random.shuffle(movimentacoes)
     return movimentacoes
 
-#Função que retorna as coordenadas (localização) de um numero dentro do tabuleiro.
+# Função que retorna as coordenadas (localização)
+# de um numero dentro do tabuleiro.
 def encontraNumEstado(estado, numero):
     for i in range(3):
         for j in range(3):
             if estado[i][j] == numero:
                 return i,j
 
-#Função Heurística Distancia de Manhathan. (É a soma das distância de todos os números do tabuleiro do estado Meta, ou seja, o quão cada peça está distante da posição correta.)
+# Função Heurística Distancia de Manhathan. 
+# (É a soma das distância de todos os números do tabuleiro 
+# do estado Meta, ou seja, o quão cada peça está distante da 
+# posição correta.)
 def distanciaManhattan(estadoAtual, estadoFinal):
     dist = 0
     fora = 0
@@ -58,7 +64,9 @@ def distanciaManhattan(estadoAtual, estadoFinal):
             dist += abs(i2-i) + abs(j2-j)
     return dist + fora
 
-#Função que insere um estado na fronteira de espaço de estados e a ordena por menor custo. (Usada somente nos algoritmos Busca A* e Busca Gulosa.)
+# Função que insere um estado na fronteira de espaço 
+# de estados e a ordena por menor custo. 
+# (Usada somente nos algoritmos Busca A* e Busca Gulosa.)
 def insereEstado(estado, fronteira):
     if estado in fronteira:
         return fronteira
