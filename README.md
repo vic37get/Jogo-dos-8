@@ -1,5 +1,5 @@
 # Jogo-dos-8
-Implementação dos algoritmos de busca no problema do jogos dos 8 números.
+:1234: 🎮🕹 Implementação dos algoritmos de busca no problema do jogos dos 8 números.
 
 ## Instalar dependências
 É necessário as dependências da biblioteca Numpy e Django.
